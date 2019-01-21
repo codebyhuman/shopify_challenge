@@ -18,6 +18,8 @@ Example Queries
 ```
 query {
   #to get all products in the marketplace
+  #fetchAllProducts has a optional argument available
+  #which shows all products with non-zero inventory count
   fetchAllProducts {
     title
     inventory_count
@@ -31,7 +33,7 @@ query {
     price
   }
   
-   #to fetch one product with the name "ice cream"
+  #to fetch one product with the name "ice cream"
   fetchOneProduct(title:"ice cream") {
     title
     inventory_count
@@ -39,6 +41,8 @@ query {
   }
   
   #to fetch all orders (products with multiple quantities)
+  #Orders represent a Product with a quantity value
+  #useful for buying mutiple of same product
   fetchAllOrders {
       price
       quantity
@@ -50,6 +54,7 @@ query {
   }
   
   #to fetch all carts
+  #cart consists of multiple different orders
   fetchAllCarts {
     id
     total_cost
