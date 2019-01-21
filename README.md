@@ -101,6 +101,8 @@ mutation {
 
 Versioning
 * Handled by Docker
+* Ruby v2.6
+* Rails v5.1.4
 
 How to run the test suite
 
@@ -115,5 +117,6 @@ Deployment instructions
 * Check your local host ip address under port 80 to see the server running
 * I have also set up a public IP address on Google Cloud
 * Using this Docker image, I created a small Kubernetes Engine and Load Balancer 
-* View the GraphIQL site at 
+* View the GraphIQL site at 104.197.224.248/graphiql
+* You can also post normally to 104.197.224.248/graphql 
 
