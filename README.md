@@ -116,7 +116,6 @@ Deployment instructions
 * `sudo docker build -t app .` and `sudo docker run -it -p 80:80 app`
 * Check your local host ip address under port 80 to see the server running
 * I have also set up a public IP address on Google Cloud
-* Using this Docker image, I created a small Kubernetes Engine and Load Balancer 
-* View the GraphIQL site at 104.197.224.248/graphiql
-* You can also post normally to 104.197.224.248/graphql 
+* View the GraphIQL site at 35.196.89.53/graphiql
+* You can also post normally to 35.196.89.53/graphql 
 
