@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inventory_count: 2 
+  price: 1.50
+  title: Apple
+
+two:
+  inventory_count: 0
+  price: 2.50
+  title: Orange
