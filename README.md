@@ -100,10 +100,20 @@ mutation {
 ```
 
 Versioning
-* Ruby version 2.3.3p222
+* Handled by Docker
 
-* Rails version 5.1.6.1
+How to run the test suite
 
-How to run the test suite TODO
+* Run `rails test` to run custom unit tests
+* Unit tests are located in /tests/models
+* Tests include checking for correct query and mutation logic
 
-Deployment instructions TODO
+Deployment instructions
+* The deployment for this app is handled by a Docker image, see Dockerfile for more details
+* To run locally, clone the repo and build and run docker image
+* `sudo docker build -t app .` and `sudo docker run -it -p 80:80 app`
+* Check your local host ip address under port 80 to see the server running
+* I have also set up a public IP address on Google Cloud
+* Using this Docker image, I created a small Kubernetes Engine and Load Balancer 
+* View the GraphIQL site at 
+
