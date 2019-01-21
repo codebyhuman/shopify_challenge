@@ -1,0 +1,981 @@
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "carts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "total_cost" float, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "orders"[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer, "price" float, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "product_id" integer, "cart_id" integer)[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE  INDEX "index_orders_on_cart_id" ON "orders" ("cart_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_orders_on_cart_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_orders_on_cart_id' AND type='index'
+[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE  INDEX "index_orders_on_product_id" ON "orders" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "products"[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "inventory_count" integer, "price" float, "title" varchar, "cart_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (6.1ms)[0m  [1m[35mCREATE  INDEX "index_products_on_cart_id" ON "products" ("cart_id")[0m
+  [1m[35m (6.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (4.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20190121053539)[0m
+  [1m[35m (5.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190121022604),
+(20190121014301),
+(20190121022459),
+(20190121004924);
+
+[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-01-21 10:43:08.492765"], ["updated_at", "2019-01-21 10:43:08.492765"]]
+  [1m[35m (4.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:24:30.622932', '2019-01-21 11:24:30.622932', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:24:30.622932', '2019-01-21 11:24:30.622932', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:24:30.625986', '2019-01-21 11:24:30.625986', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:24:30.625986', '2019-01-21 11:24:30.625986', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:24:30.628252', '2019-01-21 11:24:30.628252', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:24:30.628252', '2019-01-21 11:24:30.628252', 298486374)[0m
+  [1m[35m (30.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:24:30.668907"], ["updated_at", "2019-01-21 11:24:30.668907"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:24:30.671785"], ["updated_at", "2019-01-21 11:24:30.671785"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:24:30.673238"], ["updated_at", "2019-01-21 11:24:30.673238"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:24:30.674498"], ["updated_at", "2019-01-21 11:24:30.674498"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:25:16.953523', '2019-01-21 11:25:16.953523', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:25:16.953523', '2019-01-21 11:25:16.953523', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:25:16.956715', '2019-01-21 11:25:16.956715', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:25:16.956715', '2019-01-21 11:25:16.956715', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:25:16.958945', '2019-01-21 11:25:16.958945', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:25:16.958945', '2019-01-21 11:25:16.958945', 298486374)[0m
+  [1m[35m (26.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:25:16.996142"], ["updated_at", "2019-01-21 11:25:16.996142"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:25:16.998789"], ["updated_at", "2019-01-21 11:25:16.998789"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:25:17.000189"], ["updated_at", "2019-01-21 11:25:17.000189"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:25:17.001462"], ["updated_at", "2019-01-21 11:25:17.001462"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:25:44.941453', '2019-01-21 11:25:44.941453', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:25:44.941453', '2019-01-21 11:25:44.941453', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:25:44.944095', '2019-01-21 11:25:44.944095', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:25:44.944095', '2019-01-21 11:25:44.944095', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:25:44.946035', '2019-01-21 11:25:44.946035', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:25:44.946035', '2019-01-21 11:25:44.946035', 298486374)[0m
+  [1m[35m (5.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:25:44.959994"], ["updated_at", "2019-01-21 11:25:44.959994"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:25:44.962179"], ["updated_at", "2019-01-21 11:25:44.962179"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:25:44.963532"], ["updated_at", "2019-01-21 11:25:44.963532"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:25:44.964726"], ["updated_at", "2019-01-21 11:25:44.964726"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:25:53.878470', '2019-01-21 11:25:53.878470', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:25:53.878470', '2019-01-21 11:25:53.878470', 298486374)[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:25:53.881105', '2019-01-21 11:25:53.881105', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:25:53.881105', '2019-01-21 11:25:53.881105', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:25:53.883127', '2019-01-21 11:25:53.883127', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:25:53.883127', '2019-01-21 11:25:53.883127', 298486374)[0m
+  [1m[35m (5.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:25:53.898283"], ["updated_at", "2019-01-21 11:25:53.898283"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:25:53.900856"], ["updated_at", "2019-01-21 11:25:53.900856"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 0], ["price", 5.99], ["title", "Apple"], ["created_at", "2019-01-21 11:25:53.902182"], ["updated_at", "2019-01-21 11:25:53.902182"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["inventory_count", 5], ["price", 2.99], ["title", "Oranges"], ["created_at", "2019-01-21 11:25:53.903399"], ["updated_at", "2019-01-21 11:25:53.903399"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:26:42.920731', '2019-01-21 11:26:42.920731', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:26:42.920731', '2019-01-21 11:26:42.920731', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:26:42.923328', '2019-01-21 11:26:42.923328', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (NULL, 1.5, 'MyString', '2019-01-21 11:26:42.923328', '2019-01-21 11:26:42.923328', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:26:42.925297', '2019-01-21 11:26:42.925297', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:26:42.925297', '2019-01-21 11:26:42.925297', 298486374)[0m
+  [1m[35m (33.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:28:10.528863', '2019-01-21 11:28:10.528863', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:28:10.528863', '2019-01-21 11:28:10.528863', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:28:10.537973', '2019-01-21 11:28:10.537973', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:28:10.537973', '2019-01-21 11:28:10.537973', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:28:10.540246', '2019-01-21 11:28:10.540246', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:28:10.540246', '2019-01-21 11:28:10.540246', 298486374)[0m
+  [1m[35m (25.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:31:27.705217', '2019-01-21 11:31:27.705217', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:31:27.705217', '2019-01-21 11:31:27.705217', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:31:27.708020', '2019-01-21 11:31:27.708020', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:31:27.708020', '2019-01-21 11:31:27.708020', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:31:27.710085', '2019-01-21 11:31:27.710085', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:31:27.710085', '2019-01-21 11:31:27.710085', 298486374)[0m
+  [1m[35m (71.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:31:56.065119', '2019-01-21 11:31:56.065119', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:31:56.065119', '2019-01-21 11:31:56.065119', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:31:56.067941', '2019-01-21 11:31:56.067941', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:31:56.067941', '2019-01-21 11:31:56.067941', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:31:56.070049', '2019-01-21 11:31:56.070049', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:31:56.070049', '2019-01-21 11:31:56.070049', 298486374)[0m
+  [1m[35m (6.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:32:29.296301', '2019-01-21 11:32:29.296301', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:32:29.296301', '2019-01-21 11:32:29.296301', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:32:29.299085', '2019-01-21 11:32:29.299085', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:32:29.299085', '2019-01-21 11:32:29.299085', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:32:29.301082', '2019-01-21 11:32:29.301082', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:32:29.301082', '2019-01-21 11:32:29.301082', 298486374)[0m
+  [1m[35m (21.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:32:34.666816', '2019-01-21 11:32:34.666816', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:32:34.666816', '2019-01-21 11:32:34.666816', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:32:34.676131', '2019-01-21 11:32:34.676131', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:32:34.676131', '2019-01-21 11:32:34.676131', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:32:34.678362', '2019-01-21 11:32:34.678362', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:32:34.678362', '2019-01-21 11:32:34.678362', 298486374)[0m
+  [1m[35m (5.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:32:59.444279', '2019-01-21 11:32:59.444279', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:32:59.444279', '2019-01-21 11:32:59.444279', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:32:59.447176', '2019-01-21 11:32:59.447176', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:32:59.447176', '2019-01-21 11:32:59.447176', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:32:59.449146', '2019-01-21 11:32:59.449146', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:32:59.449146', '2019-01-21 11:32:59.449146', 298486374)[0m
+  [1m[35m (26.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:33:43.393365', '2019-01-21 11:33:43.393365', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:33:43.393365', '2019-01-21 11:33:43.393365', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:33:43.396404', '2019-01-21 11:33:43.396404', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:33:43.396404', '2019-01-21 11:33:43.396404', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:33:43.398500', '2019-01-21 11:33:43.398500', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:33:43.398500', '2019-01-21 11:33:43.398500', 298486374)[0m
+  [1m[35m (6.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:34:35.862743', '2019-01-21 11:34:35.862743', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:34:35.862743', '2019-01-21 11:34:35.862743', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:34:35.865971', '2019-01-21 11:34:35.865971', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:34:35.865971', '2019-01-21 11:34:35.865971', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:34:35.868351', '2019-01-21 11:34:35.868351', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:34:35.868351', '2019-01-21 11:34:35.868351', 298486374)[0m
+  [1m[35m (6.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:35:42.478043', '2019-01-21 11:35:42.478043', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:35:42.478043', '2019-01-21 11:35:42.478043', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:35:42.480795', '2019-01-21 11:35:42.480795', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:35:42.480795', '2019-01-21 11:35:42.480795', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:35:42.482731', '2019-01-21 11:35:42.482731', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:35:42.482731', '2019-01-21 11:35:42.482731', 298486374)[0m
+  [1m[35m (24.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:35:59.971754', '2019-01-21 11:35:59.971754', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:35:59.971754', '2019-01-21 11:35:59.971754', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:35:59.974298', '2019-01-21 11:35:59.974298', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:35:59.974298', '2019-01-21 11:35:59.974298', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:35:59.976282', '2019-01-21 11:35:59.976282', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:35:59.976282', '2019-01-21 11:35:59.976282', 298486374)[0m
+  [1m[35m (25.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:36:14.672200', '2019-01-21 11:36:14.672200', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:36:14.672200', '2019-01-21 11:36:14.672200', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:36:14.675460', '2019-01-21 11:36:14.675460', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:36:14.675460', '2019-01-21 11:36:14.675460', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:36:14.677489', '2019-01-21 11:36:14.677489', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:36:14.677489', '2019-01-21 11:36:14.677489', 298486374)[0m
+  [1m[35m (14.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.4ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:37:18.911021', '2019-01-21 11:37:18.911021', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:37:18.911021', '2019-01-21 11:37:18.911021', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:37:18.913923', '2019-01-21 11:37:18.913923', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:37:18.913923', '2019-01-21 11:37:18.913923', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:37:18.916057', '2019-01-21 11:37:18.916057', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:37:18.916057', '2019-01-21 11:37:18.916057', 298486374)[0m
+  [1m[35m (8.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:44:28.458830', '2019-01-21 11:44:28.458830', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:44:28.458830', '2019-01-21 11:44:28.458830', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:44:28.461756', '2019-01-21 11:44:28.461756', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:44:28.461756', '2019-01-21 11:44:28.461756', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:44:28.463792', '2019-01-21 11:44:28.463792', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:44:28.463792', '2019-01-21 11:44:28.463792', 298486374)[0m
+  [1m[35m (61.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apples=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.4ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:45:13.759526', '2019-01-21 11:45:13.759526', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:45:13.759526', '2019-01-21 11:45:13.759526', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:45:13.762323', '2019-01-21 11:45:13.762323', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:45:13.762323', '2019-01-21 11:45:13.762323', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:45:13.764594', '2019-01-21 11:45:13.764594', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:45:13.764594', '2019-01-21 11:45:13.764594', 298486374)[0m
+  [1m[35m (61.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apples=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:48:19.591842', '2019-01-21 11:48:19.591842', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:48:19.591842', '2019-01-21 11:48:19.591842', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:48:19.594548', '2019-01-21 11:48:19.594548', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:48:19.594548', '2019-01-21 11:48:19.594548', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:48:19.596463', '2019-01-21 11:48:19.596463', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:48:19.596463', '2019-01-21 11:48:19.596463', 298486374)[0m
+  [1m[35m (5.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apples=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:49:14.710008', '2019-01-21 11:49:14.710008', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:49:14.710008', '2019-01-21 11:49:14.710008', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:49:14.712892', '2019-01-21 11:49:14.712892', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:49:14.712892', '2019-01-21 11:49:14.712892', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:49:14.715147', '2019-01-21 11:49:14.715147', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:49:14.715147', '2019-01-21 11:49:14.715147', 298486374)[0m
+  [1m[35m (60.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apples=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:49:52.724005', '2019-01-21 11:49:52.724005', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:49:52.724005', '2019-01-21 11:49:52.724005', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:49:52.726991', '2019-01-21 11:49:52.726991', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:49:52.726991', '2019-01-21 11:49:52.726991', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:49:52.735322', '2019-01-21 11:49:52.735322', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:49:52.735322', '2019-01-21 11:49:52.735322', 298486374)[0m
+  [1m[35m (31.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.3ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:50:07.577275', '2019-01-21 11:50:07.577275', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:50:07.577275', '2019-01-21 11:50:07.577275', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:50:07.580422', '2019-01-21 11:50:07.580422', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:50:07.580422', '2019-01-21 11:50:07.580422', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:50:07.582462', '2019-01-21 11:50:07.582462', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:50:07.582462', '2019-01-21 11:50:07.582462', 298486374)[0m
+  [1m[35m (18.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:50:23.798035', '2019-01-21 11:50:23.798035', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:50:23.798035', '2019-01-21 11:50:23.798035', 298486374)[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:50:23.801005', '2019-01-21 11:50:23.801005', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:50:23.801005', '2019-01-21 11:50:23.801005', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:50:23.803207', '2019-01-21 11:50:23.803207', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:50:23.803207', '2019-01-21 11:50:23.803207', 298486374)[0m
+  [1m[35m (5.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple=1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:53:14.924676', '2019-01-21 11:53:14.924676', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:53:14.924676', '2019-01-21 11:53:14.924676', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:53:14.927352', '2019-01-21 11:53:14.927352', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:53:14.927352', '2019-01-21 11:53:14.927352', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:53:14.929370', '2019-01-21 11:53:14.929370', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:53:14.929370', '2019-01-21 11:53:14.929370', 298486374)[0m
+  [1m[35m (71.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "product_id") VALUES (?, ?, ?, ?, ?)[0m  [["quantity", 1], ["price", 1.5], ["created_at", "2019-01-21 11:53:15.034762"], ["updated_at", "2019-01-21 11:53:15.034762"], ["product_id", 980190962]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["total_cost", 1.5], ["created_at", "2019-01-21 11:53:15.049442"], ["updated_at", "2019-01-21 11:53:15.049442"]]
+  [1m[35mSQL (0.1ms)[0m  [1m[33mUPDATE "orders" SET "updated_at" = ?, "cart_id" = ? WHERE "orders"."id" = ?[0m  [["updated_at", "2019-01-21 11:53:15.051090"], ["cart_id", 980190963], ["id", 980190963]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:53:46.485150', '2019-01-21 11:53:46.485150', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 11:53:46.485150', '2019-01-21 11:53:46.485150', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 11:53:46.487934', '2019-01-21 11:53:46.487934', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 11:53:46.487934', '2019-01-21 11:53:46.487934', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:53:46.490046', '2019-01-21 11:53:46.490046', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 11:53:46.490046', '2019-01-21 11:53:46.490046', 298486374)[0m
+  [1m[35m (18.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "product_id") VALUES (?, ?, ?, ?, ?)[0m  [["quantity", 1], ["price", 1.5], ["created_at", "2019-01-21 11:53:46.545037"], ["updated_at", "2019-01-21 11:53:46.545037"], ["product_id", 980190962]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["total_cost", 1.5], ["created_at", "2019-01-21 11:53:46.559618"], ["updated_at", "2019-01-21 11:53:46.559618"]]
+  [1m[35mSQL (0.2ms)[0m  [1m[33mUPDATE "orders" SET "updated_at" = ?, "cart_id" = ? WHERE "orders"."id" = ?[0m  [["updated_at", "2019-01-21 11:53:46.561209"], ["cart_id", 980190963], ["id", 980190963]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 12:00:36.672020', '2019-01-21 12:00:36.672020', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 12:00:36.672020', '2019-01-21 12:00:36.672020', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 12:00:36.674624', '2019-01-21 12:00:36.674624', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 12:00:36.674624', '2019-01-21 12:00:36.674624', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 12:00:36.676642', '2019-01-21 12:00:36.676642', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 12:00:36.676642', '2019-01-21 12:00:36.676642', 298486374)[0m
+  [1m[35m (32.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Completing_a_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "product_id") VALUES (?, ?, ?, ?, ?)[0m  [["quantity", 1], ["price", 1.5], ["created_at", "2019-01-21 12:00:36.742061"], ["updated_at", "2019-01-21 12:00:36.742061"], ["product_id", 980190962]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["total_cost", 1.5], ["created_at", "2019-01-21 12:00:36.753983"], ["updated_at", "2019-01-21 12:00:36.753983"]]
+  [1m[35mSQL (0.1ms)[0m  [1m[33mUPDATE "orders" SET "updated_at" = ?, "cart_id" = ? WHERE "orders"."id" = ?[0m  [["updated_at", "2019-01-21 12:00:36.755349"], ["cart_id", 980190963], ["id", 980190963]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."cart_id" = ?[0m  [["cart_id", 980190963]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[33mUPDATE "products" SET "inventory_count" = ?, "updated_at" = ? WHERE "products"."id" = ?[0m  [["inventory_count", 1], ["updated_at", "2019-01-21 12:00:36.762715"], ["id", 980190962]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[31mDELETE FROM "orders" WHERE "orders"."id" = ?[0m  [["id", 980190963]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCart Load (0.0ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."cart_id" = ?[0m  [["cart_id", 980190963]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "product_id") VALUES (?, ?, ?, ?, ?)[0m  [["quantity", 1], ["price", 1.5], ["created_at", "2019-01-21 12:00:36.768103"], ["updated_at", "2019-01-21 12:00:36.768103"], ["product_id", 980190962]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["total_cost", 1.5], ["created_at", "2019-01-21 12:00:36.769962"], ["updated_at", "2019-01-21 12:00:36.769962"]]
+  [1m[35mSQL (0.1ms)[0m  [1m[33mUPDATE "orders" SET "updated_at" = ?, "cart_id" = ? WHERE "orders"."id" = ?[0m  [["updated_at", "2019-01-21 12:00:36.770965"], ["cart_id", 980190963], ["id", 980190963]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------
+CartTest: test_Creating_invalid_cart
+------------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Orange"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFixture Delete (0.2ms)[0m  [1m[31mDELETE FROM "carts"[0m
+  [1m[36mFixture Insert (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 12:07:16.116910', '2019-01-21 12:07:16.116910', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at", "id") VALUES (9.99, '2019-01-21 12:07:16.116910', '2019-01-21 12:07:16.116910', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (2, 1.5, 'Apple', '2019-01-21 12:07:16.120065', '2019-01-21 12:07:16.120065', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "products" ("inventory_count", "price", "title", "created_at", "updated_at", "id") VALUES (0, 2.5, 'Orange', '2019-01-21 12:07:16.120065', '2019-01-21 12:07:16.120065', 298486374)[0m
+  [1m[36mFixture Delete (0.1ms)[0m  [1m[31mDELETE FROM "orders"[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 12:07:16.122040', '2019-01-21 12:07:16.122040', 980190962)[0m
+  [1m[36mFixture Insert (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "id") VALUES (1, 1.5, '2019-01-21 12:07:16.122040', '2019-01-21 12:07:16.122040', 298486374)[0m
+  [1m[35m (28.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+ProductTypeTest: test_Querying_all_available_products
+-----------------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (inventory_count>0)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+ProductTypeTest: test_Querying_all_products
+-------------------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Creating_new_cart
+--------------------------------
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "product_id") VALUES (?, ?, ?, ?, ?)[0m  [["quantity", 1], ["price", 1.5], ["created_at", "2019-01-21 12:07:16.183813"], ["updated_at", "2019-01-21 12:07:16.183813"], ["product_id", 980190962]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["total_cost", 1.5], ["created_at", "2019-01-21 12:07:16.204770"], ["updated_at", "2019-01-21 12:07:16.204770"]]
+  [1m[35mSQL (0.2ms)[0m  [1m[33mUPDATE "orders" SET "updated_at" = ?, "cart_id" = ? WHERE "orders"."id" = ?[0m  [["updated_at", "2019-01-21 12:07:16.206235"], ["cart_id", 980190963], ["id", 980190963]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------
+CartTest: test_Completing_a_cart
+--------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "orders" ("quantity", "price", "created_at", "updated_at", "product_id") VALUES (?, ?, ?, ?, ?)[0m  [["quantity", 1], ["price", 1.5], ["created_at", "2019-01-21 12:07:16.211351"], ["updated_at", "2019-01-21 12:07:16.211351"], ["product_id", 980190962]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("total_cost", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["total_cost", 1.5], ["created_at", "2019-01-21 12:07:16.213625"], ["updated_at", "2019-01-21 12:07:16.213625"]]
+  [1m[35mSQL (0.1ms)[0m  [1m[33mUPDATE "orders" SET "updated_at" = ?, "cart_id" = ? WHERE "orders"."id" = ?[0m  [["updated_at", "2019-01-21 12:07:16.214654"], ["cart_id", 980190963], ["id", 980190963]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."cart_id" = ?[0m  [["cart_id", 980190963]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 980190962], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[33mUPDATE "products" SET "inventory_count" = ?, "updated_at" = ? WHERE "products"."id" = ?[0m  [["inventory_count", 1], ["updated_at", "2019-01-21 12:07:16.221932"], ["id", 980190962]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[31mDELETE FROM "orders" WHERE "orders"."id" = ?[0m  [["id", 980190963]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCart Load (0.0ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."cart_id" = ?[0m  [["cart_id", 980190963]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Apple"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------
+CartTest: test_Creating_invalid_cart
+------------------------------------
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."title" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["title", "Orange"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
