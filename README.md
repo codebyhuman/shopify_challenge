@@ -18,6 +18,8 @@ Example Queries
 ```
 query {
   #to get all products in the marketplace
+  #fetchAllProducts has a optional argument available
+  #which shows all products with non-zero inventory count
   fetchAllProducts {
     title
     inventory_count
@@ -31,7 +33,7 @@ query {
     price
   }
   
-   #to fetch one product with the name "ice cream"
+  #to fetch one product with the name "ice cream"
   fetchOneProduct(title:"ice cream") {
     title
     inventory_count
@@ -39,6 +41,8 @@ query {
   }
   
   #to fetch all orders (products with multiple quantities)
+  #Orders represent a Product with a quantity value
+  #useful for buying mutiple of same product
   fetchAllOrders {
       price
       quantity
@@ -50,6 +54,7 @@ query {
   }
   
   #to fetch all carts
+  #cart consists of multiple different orders
   fetchAllCarts {
     id
     total_cost
@@ -101,6 +106,8 @@ mutation {
 
 Versioning
 * Handled by Docker
+* Ruby v2.6
+* Rails v5.1.4
 
 How to run the test suite
 
@@ -114,6 +121,6 @@ Deployment instructions
 * `sudo docker build -t app .` and `sudo docker run -it -p 80:80 app`
 * Check your local host ip address under port 80 to see the server running
 * I have also set up a public IP address on Google Cloud
-* Using this Docker image, I created a small Kubernetes Engine and Load Balancer 
-* View the GraphIQL site at 
+* View the GraphIQL site at [34.73.184.101/graphiql](http://34.73.184.101/graphiql)
+* You can also post normally to 34.73.184.101/graphql 
 
