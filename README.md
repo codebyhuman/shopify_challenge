@@ -116,6 +116,6 @@ Deployment instructions
 * `sudo docker build -t app .` and `sudo docker run -it -p 80:80 app`
 * Check your local host ip address under port 80 to see the server running
 * I have also set up a public IP address on Google Cloud
-* View the GraphIQL site at [35.196.89.53/graphiql](http://35.196.89.53/graphiql)
+* View the GraphIQL site at [34.73.184.101/graphiql](http://34.73.184.101/graphiql)
 * You can also post normally to 34.73.184.101/graphql 
 
